@@ -42,30 +42,31 @@ clue_check_gene_set_df <- function(gs, d) {
     dplyr::filter(gene_id %in% bing_genes)
   dir_counts <- as.list(table(d_bing$direction))
   for (dir in c("up", "down")) {
-    if (dir_counts[[dir]] < MIN_N_QUERY) {
+    n <- if (is.null(dir_counts[[dir]])) 0 else dir_counts[[dir]]
+    if (n < MIN_N_QUERY) {
       warning(
-        "In gene set ", gs, " only ", dir_counts[[dir]], " are in the ", dir,
+        "In gene set ", gs, " only ", n, " are in the ", dir,
         "-regulated list. Minimum required is ", MIN_N_QUERY, ".",
         "Excluding gene set from analysis."
       )
       valid <- FALSE
     }
-    if (dir_counts[[dir]] > MAX_N_QUERY) {
+    if (n > MAX_N_QUERY) {
       warning(
-        "In gene set ", gs, ", ", dir_counts[[dir]], " are in the ", dir,
+        "In gene set ", gs, ", ", n, " are in the ", dir,
         "-regulated list. Maximum is ", MAX_N_QUERY, ". ",
         "Only keeping the ", MAX_N_QUERY, " with highest absolute fold-change."
       )
     }
   }
-  d_filtered <- d_bing %>%
+  if (!valid)
+    return(NULL)
+  d_bing %>%
     dplyr::group_by(direction) %>%
     dplyr::filter(dplyr::n() >= MIN_N_QUERY) %>%
     dplyr::arrange(dplyr::desc(abs(log2FoldChange))) %>%
     dplyr::slice(1:min(MAX_N_QUERY, dplyr::n())) %>%
     dplyr::ungroup()
-  if (valid) return(d_filtered)
-  NULL
 }
 
 #' Prepare gmt files from data frames
