@@ -3,6 +3,7 @@
 export("%>%")
 export(clue_check_bing)
 export(clue_gmt_from_df)
+export(clue_parse_result)
 export(clue_poll_job)
 export(clue_prepare_deseq2)
 export(clue_start_session)

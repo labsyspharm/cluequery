@@ -21,11 +21,16 @@ if (!requireNamespace("remotes", quietly = TRUE))
 remotes::install_github("clemenshug/clueR")
 ```
 
+## API key
+
+In order to use this package an API key from Clue is required. For
+academice purposes, they are freely available at
+[Clue](https://clue.io).
+
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(clueR)
-## basic example code
 ```

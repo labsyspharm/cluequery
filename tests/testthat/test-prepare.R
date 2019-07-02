@@ -1,6 +1,6 @@
 test_that("preparing and converting DESeq2 data to gmt works", {
-  # deseq_res <- file.path("..", "data", "example_deseq2_result.csv.xz") %>%
-  deseq_res <- file.path("tests", "data", "example_deseq2_result.csv.xz") %>%
+  deseq_res <- file.path("..", "data", "example_deseq2_result.csv.xz") %>%
+  # deseq_res <- file.path("tests", "data", "example_deseq2_result.csv.xz") %>%
     readr::read_csv()
   prepared <- clue_prepare_deseq2(deseq_res, "test_gene_set")
   expect_equal(
