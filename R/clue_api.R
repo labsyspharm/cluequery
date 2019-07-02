@@ -9,8 +9,6 @@
 # -F "data_type=L1000" \
 # -F "dataset=Touchstone" api_url
 
-MIN_N_QUERY = 10
-MAX_N_QUERY = 150
 API_URL = "https://api.clue.io"
 
 #' Start Clue session
