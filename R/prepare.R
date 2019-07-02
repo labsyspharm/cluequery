@@ -1,5 +1,6 @@
 MIN_N_QUERY = 10
 MAX_N_QUERY = 150
+MAX_N_SETS_QUERY = 25
 
 #' Check if genes are in BING space
 #'
@@ -53,13 +54,14 @@ clue_check_gene_set_df <- function(gs, d) {
       warning(
         "In gene set ", gs, ", ", dir_counts[[dir]], " are in the ", dir,
         "-regulated list. Maximum is ", MAX_N_QUERY, ". ",
-        "Only keeping first ", MAX_N_QUERY, "."
+        "Only keeping the ", MAX_N_QUERY, " with highest absolute fold-change."
       )
     }
   }
   d_filtered <- d_bing %>%
     dplyr::group_by(direction) %>%
     dplyr::filter(dplyr::n() >= MIN_N_QUERY) %>%
+    dplyr::arrange(dplyr::desc(abs(log2FoldChange))) %>%
     dplyr::slice(1:min(MAX_N_QUERY, dplyr::n())) %>%
     dplyr::ungroup()
   if (valid) return(d_filtered)
@@ -75,7 +77,15 @@ clue_gmt_from_df <- function(gene_set_df, drop_invalid = FALSE) {
     gene_set_df <- gene_set_df %>%
       dplyr::mutate(gene_id = as.character(gene_id))
   }
+  n_gene_sets <- length(unique(gene_set_df$gene_set))
+  if (n_gene_sets > MAX_N_SETS_QUERY) {
+    warning(
+      "Can't submit more than ", MAX_N_SETS_QUERY, " gene sets per query. ",
+      "Continue with the first ", MAX_N_QUERY, " gene sets."
+    )
+  }
   gene_sets <- dplyr::group_nest(gene_set_df, gene_set) %>%
+    dplyr::slice(seq_len(min(MAX_N_QUERY, dplyr::n()))) %>%
     dplyr::mutate(
       data = purrr::map2(
         gene_set, data,
@@ -87,20 +97,31 @@ clue_gmt_from_df <- function(gene_set_df, drop_invalid = FALSE) {
     dplyr::group_by(gene_set, direction) %>%
     dplyr::summarize(
       gmt = list(
-        list(head = gene_set[1], desc = gene_set[1], len = dplyr::n(), entry = gene_id)
+        list(
+          head = gene_set[1],
+          desc = paste(gene_set[1], direction[1], sep = "_"),
+          len = dplyr::n(),
+          entry = gene_id
+        )
       )
     ) %>%
+    dplyr::ungroup()
+
+  gene_sets_by_dir <- gene_sets %>%
+    dplyr::group_by(direction) %>%
+    dplyr::summarize(gmt = list(gmt)) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(
-      tmp_file = purrr::map_chr(seq_len(dplyr::n()), function(x) tempfile(fileext = "gmt"))
+      tmp_file = purrr::map_chr(seq_len(dplyr::n()), function(x) tempfile(fileext = ".gmt"))
     )
 
   purrr::walk2(
-    gene_sets$gmt,
-    gene_sets$tmp_file,
+    gene_sets_by_dir$gmt,
+    gene_sets_by_dir$tmp_file,
     function(gmt, f) {
       cmapR::write.gmt(gmt, f)
     }
   )
-  purrr::set_names(gene_sets$tmp_file, gene_sets$gene_set)
+  browser
+  purrr::set_names(gene_sets_by_dir$tmp_file, gene_sets_by_dir$direction)
 }

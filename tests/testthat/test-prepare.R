@@ -8,4 +8,5 @@ test_that("preparing and converting DESeq2 data to gmt works", {
     list(down = 172, up = 305)
   )
   gmts <- clue_gmt_from_df(prepared)
+  expect_named(gmts, c("up", "down"), ignore.order = TRUE)
 })
