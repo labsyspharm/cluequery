@@ -3,11 +3,17 @@ test_that("preparing and converting DESeq2 data to gmt works", {
     "extdata", "example_deseq2_result.csv.xz", package = "clueR", mustWork = TRUE
   )
   deseq_res <- readr::read_csv(deseq_res_path)
-  prepared <- clue_prepare_deseq2(deseq_res, "test_gene_set")
-  expect_equal(
-    as.list(table(prepared$direction)),
-    list(down = 172, up = 305)
+
+  prepared <- expect_warning(
+    clue_gmt_from_deseq2(deseq_res, "test_gene_set")
   )
-  gmts <- clue_gmt_from_df(prepared)
-  expect_named(gmts, c("up", "down"), ignore.order = TRUE)
+  gmts <- purrr::map(prepared, cmapR::parse.gmt)
+  expect_equal(
+    length(gmts$up$test_gene_set$entry),
+    150
+  )
+  expect_equal(
+    length(gmts$down$test_gene_set$entry),
+    143
+  )
 })
