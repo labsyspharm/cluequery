@@ -4,7 +4,8 @@
 \alias{clue_parse_result}
 \title{Parse result folder}
 \usage{
-clue_parse_result(path)
+clue_parse_result(path, score_type = c("ns", "tau"),
+  result_type = c("pert", "pcl"))
 }
 \description{
 Parse result folder

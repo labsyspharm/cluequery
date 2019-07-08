@@ -2,10 +2,17 @@
 #'
 #' See \code{magrittr::\link[magrittr]{\%>\%}} for details.
 #'
-#' @name %>%
-#' @rdname pipe
+#' @name pipe
 #' @keywords internal
-#' @export
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
+NULL
+
+#' Default value for `NULL`
+#'
+#' See \code{rlang::\link[rlang]{\%||\%}} for details.
+#'
+#' @name op_null_default
+#' @keywords internal
+#' @importFrom rlang %||%
 NULL

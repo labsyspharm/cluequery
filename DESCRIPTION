@@ -1,13 +1,16 @@
 Package: clueR
-Title: What the Package Does (One Line, Title Case)
+Title: Query the Clue Database of Perturbations Using R
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Clemens",
+           family = "Hug",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "clemens.hug@gmail.com",
+           comment = c(ORCID = "0000-0002-8299-3274"))
+Description: Clue.io is a database of pertubations provided by the Broad institute.
+    This package provides a programmatic interface to query the database from
+    within R. Utility functions to query directly using differential gene expression
+    results from DESeq2 are also included.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -20,7 +23,8 @@ Imports:
     jsonlite,
     readr,
     tidyr,
-    tibble
+    tibble,
+    rlang
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Suggests: 
