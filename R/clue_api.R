@@ -37,7 +37,7 @@ clue_query_submit <- function(
     stop("Job submission failed:", httr::content(response, "text"))
   }
 
-  response_json(response)
+  invisible(response_json(response))
 }
 
 #' Poll query job status
@@ -66,11 +66,11 @@ clue_query_poll <- function(clue_query, api_key = NULL) {
 
   rj <- response_json(response)
 
-  if (rj$errorMessage != "") {
+  if (!is.null(rj$errorMessage) && rj$errorMessage != "") {
     stop("Job failed:", jsonlite::toJSON(rj, pretty = TRUE))
   }
 
-  rj
+  invisible(rj)
 }
 
 #' Wait for query completion
@@ -87,7 +87,7 @@ clue_query_wait <- function(
     if (job_status$status == "completed") {
       if (!quiet)
         message("Job completed: ", job_status$job_id)
-      return(job_status)
+      invisible(job_status)
     }
     if (as.integer(Sys.time()) - start_time > timeout) {
       if (!quiet)

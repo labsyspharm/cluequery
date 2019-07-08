@@ -5,7 +5,7 @@
 \title{Wait for query completion}
 \usage{
 clue_query_wait(clue_query, interval = 60, timeout = 3600,
-  quiet = TRUE, api_key = NULL)
+  quiet = FALSE, api_key = NULL)
 }
 \description{
 Wait for query completion

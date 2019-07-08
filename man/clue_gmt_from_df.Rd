@@ -2,10 +2,10 @@
 % Please edit documentation in R/prepare.R
 \name{clue_gmt_from_df}
 \alias{clue_gmt_from_df}
-\title{Prepare gmt files from data frames}
+\title{Prepare gmt files from a data frame}
 \usage{
 clue_gmt_from_df(gene_set_df, drop_invalid = FALSE)
 }
 \description{
-Prepare gmt files from data frames
+Prepare gmt files from a data frame
 }
