@@ -6,6 +6,16 @@
 \usage{
 clue_check_bing(genes)
 }
+\arguments{
+\item{genes}{Vector of gene IDs}
+}
+\value{
+Vector of gene IDs subsetted to only contain BING genes.
+}
 \description{
-Check if genes are in BING space
+The connectivity map only contains expression information about a set of
+genes called Best INFerred Genes (BING), see
+\href{https://clue.io/connectopedia/category/Concept}{Connectopedia}.
+This function subsets the input vector of gene ids to only contain BING
+genes.
 }

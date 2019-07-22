@@ -1,5 +1,16 @@
 #' Parse result folder
 #'
+#' Clue calculates different scores.
+#' \href{https://clue.io/connectopedia/connectivity_scores}{Connectopedia} gives
+#' an overview of their interpretation.
+#'
+#' @param path Path to Clue result gz file or extracted folder.
+#' @param score_type Return either normalized scores (ns) or CMap connectivity
+#' scores (tau). See details.
+#' @param result_type Return either perturbagen level information (pert) or
+#' aggregated perturbagen class level information (pcl).
+#' @return A tibble in tidy format, with the score for a single
+#' pertubation/gene set combination per row.
 #' @export
 clue_parse_result <- function(path, score_type = c("ns", "tau"), result_type = c("pert", "pcl")) {
   if (tools::file_ext(path) == "gz") {
@@ -45,5 +56,6 @@ clue_parse_result <- function(path, score_type = c("ns", "tau"), result_type = c
       ) %>%
       dplyr::select(id, pcl_size, dplyr::everything())
   }
-  signatures_df
+  signatures_df %>%
+    tidyr::gather("gene_set", !!rlang::sym(score_type), -dplyr::starts_with("pert"))
 }

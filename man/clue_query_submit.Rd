@@ -7,6 +7,25 @@
 clue_query_submit(up_gmt, down_gmt, name = NULL, api_key = NULL,
   use_fast_tool = TRUE)
 }
+\arguments{
+\item{up_gmt, down_gmt}{Path to GMT files containing the lists of up-
+and down-regulated genes.}
+
+\item{name}{Name for job.}
+
+\item{api_key}{Clue API key. Leave empty if it is saved in
+\code{~/.Renviron}.}
+
+\item{use_fast_tool}{If TRUE (default), use experimental fast query tool.}
+}
+\value{
+Nested list of job parameters.
+}
 \description{
-Submit Clue query
+GMT files can be generated using the \code{\link{clue_prepare_funs}}
+functions or \code{\link[cmapR]{write.gmt}}.
+}
+\details{
+The experimental faster query tools is described at
+\url{https://clue.io/contest}.
 }

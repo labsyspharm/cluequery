@@ -4,6 +4,14 @@ MAX_N_SETS_QUERY = 25
 
 #' Check if genes are in BING space
 #'
+#' The connectivity map only contains expression information about a set of
+#' genes called Best INFerred Genes (BING), see
+#' \href{https://clue.io/connectopedia/category/Concept}{Connectopedia}.
+#' This function subsets the input vector of gene ids to only contain BING
+#' genes.
+#'
+#' @param genes Vector of gene IDs
+#' @return Vector of gene IDs subsetted to only contain BING genes.
 #' @export
 clue_check_bing <- function(genes) {
   genes <- unique(genes)
@@ -18,11 +26,21 @@ clue_check_bing <- function(genes) {
   genes[is_bing]
 }
 
-#' Prepare a DESeq2 result for Clue
+#' Prepare GMT functions
 #'
+#' @return Named vector with paths to the GMT files for the up-regulated
+#' and the down-regulated gene sets.
+#' @name clue_prepare_funs
+NULL
+
+#' @describeIn clue_prepare_funs Prepare a DESeq2 result for Clue
+#' @param result_df Data frame returned by \code{\link[DESeq2]{results}}
+#' function
+#' @param alpha Significance cutoff set during DESeq2 analysis.
 #' @export
 clue_gmt_from_deseq2 <- function(result_df, name, alpha = 0.05) {
   result_df %>%
+    tibble::as_tibble() %>%
     dplyr::filter(padj <= alpha) %>%
     dplyr::arrange(log2FoldChange) %>%
     dplyr::mutate(
@@ -32,8 +50,10 @@ clue_gmt_from_deseq2 <- function(result_df, name, alpha = 0.05) {
     clue_gmt_from_df()
 }
 
-#' Prepare gmt files from a data frame
-#'
+#' @describeIn clue_prepare_funs Prepare gmt files from a data frame
+#' @param gene_set_df Data frame of gene sets. See Details for format.
+#' @param drop_invalid If TRUE, drop invalid gene sets with warning. Otherwise
+#' an error is raised.
 #' @export
 clue_gmt_from_df <- function(gene_set_df, drop_invalid = FALSE) {
   if (!is.character(gene_set_df$gene_id)) {
@@ -98,12 +118,12 @@ clue_gmt_from_df <- function(gene_set_df, drop_invalid = FALSE) {
       cmapR::write.gmt(gmt, f)
     }
   )
-  browser
   purrr::set_names(gene_sets_by_dir$tmp_file, gene_sets_by_dir$direction)
 }
 
-#' Prepare gmt files from a list of genes
-#'
+#' @describeIn clue_prepare_funs Prepare gmt files from a list of genes
+#' @param up,down Vectors of up- and down-regulated gene IDs.
+#' @param name Name of gene set.
 #' @export
 clue_gmt_from_list <- function(
   up, down, name, drop_invalid = FALSE

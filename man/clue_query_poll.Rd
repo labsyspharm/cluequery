@@ -2,10 +2,41 @@
 % Please edit documentation in R/clue_api.R
 \name{clue_query_poll}
 \alias{clue_query_poll}
+\alias{clue_query_wait}
+\alias{clue_query_download}
 \title{Poll query job status}
 \usage{
 clue_query_poll(clue_query, api_key = NULL)
+
+clue_query_wait(clue_query, interval = 60, timeout = 3600,
+  quiet = FALSE, api_key = NULL)
+
+clue_query_download(clue_query, destination = NULL, api_key = NULL)
+}
+\arguments{
+\item{clue_query}{Job ID or job parameters returned by
+\code{\link{clue_query_submit}}}
+
+\item{api_key}{Clue API key. Leave empty if it is saved in \code{~/.Renviron}}
+
+\item{interval}{Check every x seconds.}
+
+\item{timeout}{Abort waiting after x seconds.}
+
+\item{quiet}{Don't output periodic status updates.}
+
+\item{destination}{Path to download destination.}
 }
 \description{
-Poll query job status
+\code{clue_query_poll} fetches the current status of the job.
+\code{clue_query_wait} blocks until the job either finishes or fails.
+\code{clue_query_download} should be called to download the results after
+the job is finished.
 }
+\section{Functions}{
+\itemize{
+\item \code{clue_query_wait}: Wait for query completion
+
+\item \code{clue_query_download}: Download query result
+}}
+

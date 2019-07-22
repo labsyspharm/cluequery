@@ -22,13 +22,13 @@ data from [Clue](https://clue.io).
 
 ## Installation
 
-You can install the released version of clueR from
-[Github](https://github.com/clemenshug/clueR) with:
+You can install the current version of clueR from
+[Github](https://github.com/labsyspharm/clueR) with:
 
 ```{r installation, eval=FALSE}
 if (!requireNamespace("remotes", quietly = TRUE))
   install.packages("remotes")
-remotes::install_github("clemenshug/clueR")
+remotes::install_github("labsyspharm/clueR")
 ```
 
 ## API key
@@ -79,12 +79,16 @@ deseq2_gmt <- clue_gmt_from_deseq2(deseq2_res, name = "treatment_drug_x", alpha 
 str(deseq2_gmt)
 ```
 
-The `clue_prepare_deseq2` function returns a named vector with paths to the GMT
+A number of warnings are raised, indicating that some gene IDs are not part of
+the [BING gene space](https://clue.io/connectopedia/category/Concept). These
+genes are removed from the gene sets and not considered by Clue.
+
+`clue_prepare_deseq2` returns a named vector with paths to the GMT
 files for the up- and the down-regulated genes.
 
 ### Gene signature derived from pre-existing lists
 
-We can also convert an pre-existing set of genes to GMT files:
+We can also convert an pre-existing set of genes from any source to GMT files:
 
 ```{r pre_defined}
 up_genes <- c(
@@ -115,7 +119,9 @@ str(pre_gmt)
 
 ### Querying Clue
 
-Now that we have the GMT files, we can query Clue. 
+Now that we have GMT files, we can query Clue. Here we use the GMT files derived
+from the DESeq2 result, but we could also use the `pre_gmt` files generated
+above.
 
 ```{r query_clue}
 submission_result <- clue_query_submit(
@@ -131,7 +137,7 @@ Now we have to wait for the job to finish. We can use the function `clue_query_w
 to pause our script until the results are ready.
 
 ```{r wait_result}
-clue_query_wait(submission_result, interval = 300, timeout = 3600)
+clue_query_wait(submission_result, interval = 60, timeout = 600)
 ```
 
 `clue_query_wait` will automatically continue execution of the script once results
@@ -140,5 +146,14 @@ are ready. Now we can download and parse the results:
 ```{r download_and_parse}
 result_path <- clue_query_download(submission_result)
 result_df <- clue_parse_result(result_path)
-head(result_df)
 ```
+
+```{r echo = FALSE}
+knitr::kable(head(result_df, n = 10))
+```
+
+## Funding
+
+We gratefully acknowledge support by NIH Grant 1U54CA225088-01: Systems
+Pharmacology of Therapeutic and Adverse Responses to Immune Checkpoint and Small
+Molecule Drugs.

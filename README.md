@@ -12,13 +12,13 @@ Connectivity Map data from [Clue](https://clue.io).
 
 ## Installation
 
-You can install the released version of clueR from
-[Github](https://github.com/clemenshug/clueR) with:
+You can install the current version of clueR from
+[Github](https://github.com/labsyspharm/clueR) with:
 
 ``` r
 if (!requireNamespace("remotes", quietly = TRUE))
   install.packages("remotes")
-remotes::install_github("clemenshug/clueR")
+remotes::install_github("labsyspharm/clueR")
 ```
 
 ## API key
@@ -82,16 +82,22 @@ deseq2_gmt <- clue_gmt_from_deseq2(deseq2_res, name = "treatment_drug_x", alpha 
 #> Warning: In gene set treatment_drug_x, 264 are in the up-regulated list.
 #> Maximum is 150. Only keeping the first 150
 str(deseq2_gmt)
-#>  Named chr [1:2] "/var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpYI7Gw6/filee2f06bd9e031.gmt" ...
+#>  Named chr [1:2] "/var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpbwGbaz/file65a41ca924d.gmt" ...
 #>  - attr(*, "names")= chr [1:2] "down" "up"
 ```
 
-The `clue_prepare_deseq2` function returns a named vector with paths to
-the GMT files for the up- and the down-regulated genes.
+A number of warnings are raised, indicating that some gene IDs are not
+part of the [BING gene
+space](https://clue.io/connectopedia/category/Concept). These genes are
+removed from the gene sets and not considered by Clue.
+
+`clue_prepare_deseq2` returns a named vector with paths to the GMT files
+for the up- and the down-regulated genes.
 
 ### Gene signature derived from pre-existing lists
 
-We can also convert an pre-existing set of genes to GMT files:
+We can also convert an pre-existing set of genes from any source to GMT
+files:
 
 ``` r
 up_genes <- c(
@@ -118,20 +124,22 @@ down_genes <- c(
 
 pre_gmt <- clue_gmt_from_list(up_genes, down_genes, "my_favourite_genes")
 str(pre_gmt)
-#>  Named chr [1:2] "/var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpYI7Gw6/filee2f042d520d0.gmt" ...
+#>  Named chr [1:2] "/var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpbwGbaz/file65a5c31574.gmt" ...
 #>  - attr(*, "names")= chr [1:2] "down" "up"
 ```
 
 ### Querying Clue
 
-Now that we have the GMT files, we can query Clue.
+Now that we have GMT files, we can query Clue. Here we use the GMT files
+derived from the DESeq2 result, but we could also use the `pre_gmt`
+files generated above.
 
 ``` r
 submission_result <- clue_query_submit(
   deseq2_gmt[["up"]], deseq2_gmt[["down"]], name = "deseq2_query_job"
 )
 submission_result$result$job_id
-#> 5d23bc76e4cfa3ce97a52df5
+#> [1] "5d36096d12e15519133e87fd"
 ```
 
 `clue_query_submit` returns a nested list containing information about
@@ -141,10 +149,11 @@ Now we have to wait for the job to finish. We can use the function
 `clue_query_wait` to pause our script until the results are ready.
 
 ``` r
-clue_query_wait(submission_result, interval = 300, timeout = 3600)
-#> Job not completed yet, waiting for: 5d23bc76e4cfa3ce97a52df5
-#> Job not completed yet, waiting for: 5d23bc76e4cfa3ce97a52df5
-#> Job completed: 5d23bc76e4cfa3ce97a52df5
+clue_query_wait(submission_result, interval = 60, timeout = 600)
+#> Job not completed yet, waiting for: 5d36096d12e15519133e87fd
+#> Job not completed yet, waiting for: 5d36096d12e15519133e87fd
+#> Job not completed yet, waiting for: 5d36096d12e15519133e87fd
+#> Job completed: 5d36096d12e15519133e87fd
 ```
 
 `clue_query_wait` will automatically continue execution of the script
@@ -153,16 +162,25 @@ once results are ready. Now we can download and parse the results:
 ``` r
 result_path <- clue_query_download(submission_result)
 result_df <- clue_parse_result(result_path)
-#> reading /var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpYI7Gw6/clueR-e2f0761a8875/my_analysis.sig_fastgutc_tool.5d23bc76e4cfa3ce97a52df5/matrices/gutc/ns_pert_summary.gctx
+#> reading /var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpbwGbaz/clueR-65a4facb13e/my_analysis.sig_fastgutc_tool.5d36096d12e15519133e87fd/matrices/gutc/ns_pert_summary.gctx
 #> done
-head(result_df)
-#> # A tibble: 6 x 4
-#>   pert_id       pert_type pert_iname      treatment_drug_x
-#>   <chr>         <chr>     <chr>                      <dbl>
-#> 1 BRD-A09094913 trt_cp    strychnine                 0    
-#> 2 BRD-A55393291 trt_cp    testosterone               0.597
-#> 3 BRD-A93255169 trt_cp    thalidomide                0.180
-#> 4 BRD-K41731458 trt_cp    triclosan                  0.104
-#> 5 BRD-K63675182 trt_cp    triflupromazine           -0.758
-#> 6 BRD-A19195498 trt_cp    trimipramine              -0.576
 ```
+
+| pert\_id      | pert\_type | pert\_iname                  | gene\_set          |          ns |
+| :------------ | :--------- | :--------------------------- | :----------------- | ----------: |
+| BRD-A09094913 | trt\_cp    | strychnine                   | treatment\_drug\_x |   0.0000000 |
+| BRD-A55393291 | trt\_cp    | testosterone                 | treatment\_drug\_x |   0.5971081 |
+| BRD-A93255169 | trt\_cp    | thalidomide                  | treatment\_drug\_x |   0.1799593 |
+| BRD-K41731458 | trt\_cp    | triclosan                    | treatment\_drug\_x |   0.1040271 |
+| BRD-K63675182 | trt\_cp    | triflupromazine              | treatment\_drug\_x | \-0.7581666 |
+| BRD-A19195498 | trt\_cp    | trimipramine                 | treatment\_drug\_x | \-0.5755145 |
+| BRD-K99621550 | trt\_cp    | tubocurarine                 | treatment\_drug\_x |   0.0000000 |
+| BRD-A51714012 | trt\_cp    | venlafaxine                  | treatment\_drug\_x |   0.3056950 |
+| BRD-K45117373 | trt\_cp    | Y-26763                      | treatment\_drug\_x |   0.0000000 |
+| BRD-K42095107 | trt\_cp    | daidzein                     | treatment\_drug\_x |   0.0000000 |
+
+## Funding
+
+We gratefully acknowledge support by NIH Grant 1U54CA225088-01: Systems
+Pharmacology of Therapeutic and Adverse Responses to Immune Checkpoint
+and Small Molecule Drugs.
