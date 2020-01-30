@@ -7,7 +7,7 @@ test_that("preparing and converting DESeq2 data to gmt works", {
   prepared <- expect_warning(
     clue_gmt_from_deseq2(deseq_res, "test_gene_set")
   )
-  gmts <- purrr::map(prepared, cmapR::parse.gmt)
+  gmts <- purrr::map(prepared, cmapR::parse_gmt)
   expect_equal(
     length(gmts$up$test_gene_set$entry),
     150

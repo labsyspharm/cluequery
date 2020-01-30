@@ -35,7 +35,7 @@ clue_parse_result <- function(path, score_type = c("ns", "tau"), result_type = c
   signatures_file <- file.path(path, "matrices", "gutc", paste0(score_type_name, "_", result_type_name, "_", "summary.gctx"))
   if (!file.exists(signatures_file))
     stop("Signatures file not found at ", signatures_file)
-  signatures <- cmapR::parse.gctx(
+  signatures <- cmapR::parse_gctx(
     signatures_file
   )
   signatures_df <- signatures@mat %>%

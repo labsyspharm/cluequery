@@ -8,8 +8,13 @@
 \usage{
 clue_query_poll(clue_query, api_key = NULL)
 
-clue_query_wait(clue_query, interval = 60, timeout = 3600,
-  quiet = FALSE, api_key = NULL)
+clue_query_wait(
+  clue_query,
+  interval = 60,
+  timeout = 3600,
+  quiet = FALSE,
+  api_key = NULL
+)
 
 clue_query_download(clue_query, destination = NULL, api_key = NULL)
 }

@@ -4,8 +4,13 @@
 \alias{clue_query_submit}
 \title{Submit Clue query}
 \usage{
-clue_query_submit(up_gmt, down_gmt, name = NULL, api_key = NULL,
-  use_fast_tool = TRUE)
+clue_query_submit(
+  up_gmt,
+  down_gmt,
+  name = NULL,
+  api_key = NULL,
+  use_fast_tool = TRUE
+)
 }
 \arguments{
 \item{up_gmt, down_gmt}{Path to GMT files containing the lists of up-
@@ -23,7 +28,7 @@ Nested list of job parameters.
 }
 \description{
 GMT files can be generated using the \code{\link{clue_prepare_funs}}
-functions or \code{\link[cmapR]{write.gmt}}.
+functions or \code{\link[cmapR]{write_gmt}}.
 }
 \details{
 The experimental faster query tools is described at

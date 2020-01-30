@@ -115,7 +115,7 @@ clue_gmt_from_df <- function(gene_set_df, drop_invalid = FALSE) {
     gene_sets_by_dir$gmt,
     gene_sets_by_dir$tmp_file,
     function(gmt, f) {
-      cmapR::write.gmt(gmt, f)
+      cmapR::write_gmt(gmt, f)
     }
   )
   purrr::set_names(gene_sets_by_dir$tmp_file, gene_sets_by_dir$direction)

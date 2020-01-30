@@ -3,7 +3,7 @@ API_URL = "https://api.clue.io"
 #' Submit Clue query
 #'
 #' GMT files can be generated using the \code{\link{clue_prepare_funs}}
-#' functions or \code{\link[cmapR]{write.gmt}}.
+#' functions or \code{\link[cmapR]{write_gmt}}.
 #'
 #' The experimental faster query tools is described at
 #' \url{https://clue.io/contest}.

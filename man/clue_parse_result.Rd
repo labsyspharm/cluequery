@@ -4,8 +4,11 @@
 \alias{clue_parse_result}
 \title{Parse result folder}
 \usage{
-clue_parse_result(path, score_type = c("ns", "tau"),
-  result_type = c("pert", "pcl"))
+clue_parse_result(
+  path,
+  score_type = c("ns", "tau"),
+  result_type = c("pert", "pcl")
+)
 }
 \arguments{
 \item{path}{Path to Clue result gz file or extracted folder.}
