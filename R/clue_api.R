@@ -28,13 +28,13 @@ clue_query_submit <- function(
     path = "/api/jobs"
   )
   request_body <- list(
-    name = name,
-    tool_id = tool,
-    `uptag-cmapfile` = httr::upload_file(up_gmt),
-    `dntag-cmapfile` = httr::upload_file(down_gmt),
-    ignoreWarnings = "false",
-    data_type = "L1000",
-    dataset = "Touchstone"
+    "name" = name,
+    "tool_id" = tool,
+    "uptag-cmapfile" = httr::upload_file(up_gmt),
+    "dntag-cmapfile" = httr::upload_file(down_gmt),
+    "data_type" = "L1000",
+    "dataset" = "Touchstone",
+    "ignoreWarnings" = "false"
   )
 
   response <- httr::POST(
@@ -87,8 +87,8 @@ clue_query_poll <- function(clue_query, api_key = NULL) {
 
   rj <- response_json(response)
 
-  if (!is.null(rj$errorMessage) && rj$errorMessage != "") {
-    stop("Job failed:", jsonlite::toJSON(rj, pretty = TRUE))
+  if (!is.null(rj[["errorMessage"]]) && rj[["errorMessage"]] != "") {
+    stop("Job failed: ", rj[["errorMessage"]], "\n", jsonlite::toJSON(rj, pretty = TRUE))
   }
 
   invisible(rj)

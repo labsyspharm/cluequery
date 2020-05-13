@@ -6,12 +6,15 @@
 \usage{
 clue_parse_result(
   path,
+  score_level = c("cell", "summary"),
   score_type = c("ns", "tau"),
   result_type = c("pert", "pcl")
 )
 }
 \arguments{
 \item{path}{Path to Clue result gz file or extracted folder.}
+
+\item{score_level}{Return result on cell level (cell) or summarized (summary)}
 
 \item{score_type}{Return either normalized scores (ns) or CMap connectivity
 scores (tau). See details.}

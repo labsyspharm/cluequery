@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Query the Clue Database of Perturbations Using R • clueR</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Query the Clue Database of Perturbations Using R">
 <meta property="og:description" content="Clue.io is a database of pertubations provided by the Broad institute.
     This package provides a programmatic interface to query the database from
@@ -21,7 +22,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -33,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">clueR</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2</span>
       </span>
     </div>
 
@@ -41,8 +42,8 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
-
+    <span class="fas fa fas fa-home fa-lg"></span>
+     
   </a>
 </li>
 <li>
@@ -57,14 +58,10 @@
 </div>
 <!--/.navbar -->
 
+      
 
       </header><div class="row">
-  <div class="col-md-9 contents">
-
-
-
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+  <div class="contents col-md-9">
 <div id="cluer" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#cluer" class="anchor"></a>clueR</h1></div>
@@ -75,16 +72,16 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the current version of clueR from <a href="https://github.com/labsyspharm/clueR">Github</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/ns-load">requireNamespace</a></span>(<span class="st">"remotes"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"labsyspharm/clueR"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"remotes"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"labsyspharm/clueR"</span>)</a></code></pre></div>
 </div>
 <div id="api-key" class="section level2">
 <h2 class="hasAnchor">
 <a href="#api-key" class="anchor"></a>API key</h2>
 <p>In order to use this package an API key from Clue is required. For academice purposes, they are freely available at <a href="https://clue.io">Clue</a>.</p>
 <p>The API key can be automatically retrieved by all <code>clueR</code> functions if it is added to the <code>~/.Renviron</code> file:</p>
-<pre><code>CLUE_API_KEY=xxx</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">CLUE_API_KEY=xxx</a></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -96,10 +93,10 @@
 <a href="#gene-signature-derived-from-differential-expression-with-deseq2" class="anchor"></a>Gene signature derived from differential expression with DESeq2</h3>
 <p>In this example, we generate a gene set compatible with Clue from a <a href="https://bioconductor.org/packages/release/bioc/html/DESeq2.html">DESeq2</a> differential expression experiment.</p>
 <p>First, we load our example DESeq2 result:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(clueR)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">deseq2_res_path &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"example_deseq2_result.csv.xz"</span>, <span class="dt">package =</span> <span class="st">"clueR"</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">deseq2_res &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(deseq2_res_path)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(deseq2_res)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(clueR)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">deseq2_res_path &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"extdata"</span>, <span class="st">"example_deseq2_result.csv.xz"</span>, <span class="dt">package =</span> <span class="st">"clueR"</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">deseq2_res &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(deseq2_res_path)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(deseq2_res)</a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;    baseMean log2FoldChange     lfcSE     pvalue      padj gene_id</span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; 1 4.3724771    0.738529493 0.6278196 0.01665139 0.1310497       1</span></a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; 2 0.2845104   -0.048028976 0.3494750 0.55657836        NA       2</span></a>
@@ -116,8 +113,8 @@
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; Excluding them from analysis. 407 genes left.</span></a>
 <a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; Warning: In gene set treatment_drug_x, 264 are in the up-regulated list.</span></a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; Maximum is 150. Only keeping the first 150</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(deseq2_gmt)</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  Named chr [1:2] "/var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//Rtmptj47pg/file44b46bfd8e.gmt" ...</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(deseq2_gmt)</a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;  Named chr [1:2] "/var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpbwGbaz/file65a41ca924d.gmt" ...</span></a>
 <a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  - attr(*, "names")= chr [1:2] "down" "up"</span></a></code></pre></div>
 <p>A number of warnings are raised, indicating that some gene IDs are not part of the <a href="https://clue.io/connectopedia/category/Concept">BING gene space</a>. These genes are removed from the gene sets and not considered by Clue.</p>
 <p><code>clue_prepare_deseq2</code> returns a named vector with paths to the GMT files for the up- and the down-regulated genes.</p>
@@ -126,7 +123,7 @@
 <h3 class="hasAnchor">
 <a href="#gene-signature-derived-from-pre-existing-lists" class="anchor"></a>Gene signature derived from pre-existing lists</h3>
 <p>We can also convert an pre-existing set of genes from any source to GMT files:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">up_genes &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">up_genes &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">  <span class="st">"10365"</span>, <span class="st">"1831"</span>, <span class="st">"9314"</span>, <span class="st">"4846"</span>, <span class="st">"678"</span>, <span class="st">"22992"</span>, <span class="st">"3397"</span>, <span class="st">"26136"</span>, </a>
 <a class="sourceLine" id="cb5-3" data-line-number="3">  <span class="st">"79637"</span>, <span class="st">"5551"</span>, <span class="st">"7056"</span>, <span class="st">"79888"</span>, <span class="st">"1032"</span>, <span class="st">"51278"</span>, <span class="st">"64866"</span>, <span class="st">"29775"</span>, </a>
 <a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="st">"994"</span>, <span class="st">"51696"</span>, <span class="st">"81839"</span>, <span class="st">"23580"</span>, <span class="st">"219654"</span>, <span class="st">"57178"</span>, <span class="st">"7014"</span>, </a>
@@ -137,7 +134,7 @@
 <a class="sourceLine" id="cb5-9" data-line-number="9">  <span class="st">"3223"</span>, <span class="st">"6915"</span>, <span class="st">"6907"</span>, <span class="st">"26056"</span>, <span class="st">"259217"</span>, <span class="st">"6574"</span>, <span class="st">"23097"</span>, <span class="st">"5164"</span>, </a>
 <a class="sourceLine" id="cb5-10" data-line-number="10">  <span class="st">"57493"</span>, <span class="st">"7071"</span>, <span class="st">"5450"</span>, <span class="st">"113146"</span>, <span class="st">"8650"</span></a>
 <a class="sourceLine" id="cb5-11" data-line-number="11">)</a>
-<a class="sourceLine" id="cb5-12" data-line-number="12">down_genes &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">down_genes &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(</a>
 <a class="sourceLine" id="cb5-13" data-line-number="13">  <span class="st">"5128"</span>, <span class="st">"5046"</span>, <span class="st">"956"</span>, <span class="st">"10426"</span>, <span class="st">"9188"</span>, <span class="st">"23403"</span>, <span class="st">"7204"</span>, <span class="st">"1827"</span>, </a>
 <a class="sourceLine" id="cb5-14" data-line-number="14">  <span class="st">"3491"</span>, <span class="st">"9076"</span>, <span class="st">"330"</span>, <span class="st">"8540"</span>, <span class="st">"22800"</span>, <span class="st">"10687"</span>, <span class="st">"19"</span>, <span class="st">"63875"</span>, </a>
 <a class="sourceLine" id="cb5-15" data-line-number="15">  <span class="st">"10979"</span>, <span class="st">"51154"</span>, <span class="st">"10370"</span>, <span class="st">"50628"</span>, <span class="st">"7128"</span>, <span class="st">"6617"</span>, <span class="st">"7187"</span>, <span class="st">"22916"</span>, </a>
@@ -149,8 +146,8 @@
 <a class="sourceLine" id="cb5-21" data-line-number="21">)</a>
 <a class="sourceLine" id="cb5-22" data-line-number="22"></a>
 <a class="sourceLine" id="cb5-23" data-line-number="23">pre_gmt &lt;-<span class="st"> </span><span class="kw"><a href="reference/clue_prepare_funs.html">clue_gmt_from_list</a></span>(up_genes, down_genes, <span class="st">"my_favourite_genes"</span>)</a>
-<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(pre_gmt)</a>
-<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt;  Named chr [1:2] "/var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//Rtmptj47pg/file44b51beabe5.gmt" ...</span></a>
+<a class="sourceLine" id="cb5-24" data-line-number="24"><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(pre_gmt)</a>
+<a class="sourceLine" id="cb5-25" data-line-number="25"><span class="co">#&gt;  Named chr [1:2] "/var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpbwGbaz/file65a5c31574.gmt" ...</span></a>
 <a class="sourceLine" id="cb5-26" data-line-number="26"><span class="co">#&gt;  - attr(*, "names")= chr [1:2] "down" "up"</span></a></code></pre></div>
 </div>
 <div id="querying-clue" class="section level3">
@@ -161,26 +158,20 @@
 <a class="sourceLine" id="cb6-2" data-line-number="2">  deseq2_gmt[[<span class="st">"up"</span>]], deseq2_gmt[[<span class="st">"down"</span>]], <span class="dt">name =</span> <span class="st">"deseq2_query_job"</span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">)</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">submission_result<span class="op">$</span>result<span class="op">$</span>job_id</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; [1] "5d36064512e15519133e87f9"</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; [1] "5d36096d12e15519133e87fd"</span></a></code></pre></div>
 <p><code>clue_query_submit</code> returns a nested list containing information about the submitted job, including the job id.</p>
 <p>Now we have to wait for the job to finish. We can use the function <code>clue_query_wait</code> to pause our script until the results are ready.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/clue_query_poll.html">clue_query_wait</a></span>(submission_result, <span class="dt">interval =</span> <span class="dv">60</span>, <span class="dt">timeout =</span> <span class="dv">600</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; Job not completed yet, waiting for: 5d36064512e15519133e87f9</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; Job completed: 5d36064512e15519133e87f9</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Job not completed yet, waiting for: 5d36096d12e15519133e87fd</span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; Job not completed yet, waiting for: 5d36096d12e15519133e87fd</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; Job not completed yet, waiting for: 5d36096d12e15519133e87fd</span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; Job completed: 5d36096d12e15519133e87fd</span></a></code></pre></div>
 <p><code>clue_query_wait</code> will automatically continue execution of the script once results are ready. Now we can download and parse the results:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">result_path &lt;-<span class="st"> </span><span class="kw"><a href="reference/clue_query_poll.html">clue_query_download</a></span>(submission_result)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">result_df &lt;-<span class="st"> </span><span class="kw"><a href="reference/clue_parse_result.html">clue_parse_result</a></span>(result_path)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; reading /var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//Rtmptj47pg/clueR-44b361608cb/my_analysis.sig_fastgutc_tool.5d36064512e15519133e87f9/matrices/gutc/ns_pert_summary.gctx</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; reading /var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpbwGbaz/clueR-65a4facb13e/my_analysis.sig_fastgutc_tool.5d36096d12e15519133e87fd/matrices/gutc/ns_pert_summary.gctx</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; done</span></a></code></pre></div>
-<table class="table table">
+<table class="table">
 <thead><tr class="header">
 <th align="left">pert_id</th>
 <th align="left">pert_type</th>
@@ -282,12 +273,11 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Clemens Hug <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8299-3274" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Clemens Hug <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-8299-3274" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 </ul>
 </div>
 
-      </div>
-
+  </div>
 </div>
 
 
@@ -296,11 +286,13 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
+  
 
 
   </body>
