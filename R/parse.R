@@ -51,6 +51,20 @@ clue_parse_result <- function(
       signatures@rdesc,
       by = "id"
     ) %>%
-    tidyr::gather("gene_set", !!rlang::sym(score_type), dplyr::one_of(gene_sets))
+    tidyr::gather("gene_set", !!rlang::sym(score_type), dplyr::all_of(gene_sets))
+  if (score_level == "summary")
+    signatures_df <- dplyr::mutate(signatures_df, cell_id = "summary")
+  if (result_type == "pcl")
+    signatures_df <- dplyr::mutate(
+      signatures_df,
+      pert_id = str_split_fixed(id, fixed(":"), 2)[, 1],
+      pert_iname = pert_id,
+      pert_type = "pcl"
+    )
+  if (score_level == "cell" && result_type == "pcl")
+    signatures_df <- dplyr::mutate(
+      signatures_df,
+      cell_id = str_split_fixed(id, fixed(":"), 2)[, 2]
+    )
   signatures_df
 }
