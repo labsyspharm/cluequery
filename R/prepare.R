@@ -87,8 +87,12 @@ clue_gmt_from_df <- function(gene_set_df, drop_invalid = FALSE) {
       warning("Dropping invalid gene sets: ", invalid_names, call. = FALSE)
   }
 
+  gene_sets_raw <- gene_sets_raw %>%
+    filter(!invalid_sets)
+  if(nrow(gene_sets_raw) == 0)
+    return(NULL)
+
   gene_sets <- gene_sets_raw %>%
-    dplyr::filter(!invalid_sets) %>%
     tidyr::unnest(data) %>%
     dplyr::group_by(gene_set, direction) %>%
     dplyr::summarize(

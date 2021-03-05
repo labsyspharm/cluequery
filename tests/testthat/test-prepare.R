@@ -1,6 +1,6 @@
 test_that("preparing and converting DESeq2 data to gmt works", {
   deseq_res_path <- system.file(
-    "extdata", "example_deseq2_result.csv.xz", package = "clueR", mustWork = TRUE
+    "extdata", "example_deseq2_result.csv.xz", package = "cluequery", mustWork = TRUE
   )
   deseq_res <- readr::read_csv(deseq_res_path)
 

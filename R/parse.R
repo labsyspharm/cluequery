@@ -17,7 +17,7 @@ clue_parse_result <- function(
   path, score_level = c("cell", "summary"), score_type = c("ns", "tau"), result_type = c("pert", "pcl")
 ) {
   if (tools::file_ext(path) == "gz") {
-    tmp_dir <- tempfile("clueR-")
+    tmp_dir <- tempfile("cluequery-")
     dir.create(tmp_dir)
     untar(path, exdir = tmp_dir)
     path <- list.dirs(tmp_dir, recursive = FALSE)[1]

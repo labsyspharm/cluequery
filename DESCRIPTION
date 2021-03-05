@@ -1,6 +1,6 @@
-Package: clueR
+Package: cluequery
 Title: Query the Clue Database of Perturbations Using R
-Version: 0.2
+Version: 0.3
 Authors@R: 
     person(given = "Clemens",
            family = "Hug",
@@ -27,6 +27,6 @@ Imports:
     rlang,
     stringr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 2.1.0)

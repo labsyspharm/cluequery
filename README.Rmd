@@ -12,23 +12,23 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# clueR
+# cluequery
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of clueR is to provide an easy R interface to query Connectivity Map
+The goal of cluequery is to provide an easy R interface to query Connectivity Map
 data from [Clue](https://clue.io).
 
 ## Installation
 
-You can install the current version of clueR from
-[Github](https://github.com/labsyspharm/clueR) with:
+You can install the current version of cluequery from
+[Github](https://github.com/labsyspharm/cluequery) with:
 
 ```{r installation, eval=FALSE}
 if (!requireNamespace("remotes", quietly = TRUE))
   install.packages("remotes")
-remotes::install_github("labsyspharm/clueR")
+remotes::install_github("labsyspharm/cluequery")
 ```
 
 ## API key
@@ -36,7 +36,7 @@ remotes::install_github("labsyspharm/clueR")
 In order to use this package an API key from Clue is required. For academice
 purposes, they are freely available at [Clue](https://clue.io).
 
-The API key can be automatically retrieved by all `clueR` functions if it is
+The API key can be automatically retrieved by all `cluequery` functions if it is
 added to the `~/.Renviron` file:
 
 ```
@@ -62,8 +62,8 @@ differential expression experiment.
 First, we load our example DESeq2 result:
 
 ```{r load_deseq2}
-library(clueR)
-deseq2_res_path <- system.file("extdata", "example_deseq2_result.csv.xz", package = "clueR")
+library(cluequery)
+deseq2_res_path <- system.file("extdata", "example_deseq2_result.csv.xz", package = "cluequery")
 deseq2_res <- read.csv(deseq2_res_path)
 head(deseq2_res)
 ```
@@ -125,7 +125,7 @@ above.
 
 ```{r query_clue}
 submission_result <- clue_query_submit(
-  deseq2_gmt[["up"]], deseq2_gmt[["down"]], name = "deseq2_query_job"
+  deseq2_gmt[["up"]], deseq2_gmt[["down"]], name = "deseq2_query_job", use_fast_tool = FALSE
 )
 submission_result$result$job_id
 ```
