@@ -2,14 +2,22 @@
 % Please edit documentation in R/clue_api.R
 \name{clue_query_submit}
 \alias{clue_query_submit}
-\title{Submit Clue query}
+\alias{clue_queries_submit}
+\title{Submit Clue queries}
 \usage{
 clue_query_submit(
   up_gmt,
   down_gmt,
   name = NULL,
   api_key = NULL,
-  use_fast_tool = TRUE
+  use_fast_tool = FALSE
+)
+
+clue_queries_submit(
+  queries,
+  api_key = NULL,
+  use_fast_tool = FALSE,
+  interval = 60
 )
 }
 \arguments{
@@ -22,15 +30,28 @@ and down-regulated genes.}
 \code{~/.Renviron}.}
 
 \item{use_fast_tool}{If TRUE (default), use experimental fast query tool.}
+
+\item{queries}{Named list of lists, each with an \code{up} and \code{down}
+slot containing up- and down-regulated GMT files. Job names
+are derived from the list names.}
+
+\item{interval}{Check every x seconds.}
 }
 \value{
-Nested list of job parameters.
+Nested list of job parameters returned by Clue.
 }
 \description{
-GMT files can be generated using the \code{\link{clue_prepare_funs}}
-functions or \code{\link[cmapR]{write_gmt}}.
+Submit query gene sets in GMT format as jobs to Clue.
 }
 \details{
+GMT files can be generated using the \code{\link{clue_prepare_funs}}
+functions or \code{\link[cmapR]{write_gmt}}.
+
 The experimental faster query tools is described at
 \url{https://clue.io/contest}.
 }
+\section{Functions}{
+\itemize{
+\item \code{clue_queries_submit}: Submit multiple queries to Clue
+}}
+

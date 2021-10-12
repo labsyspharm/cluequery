@@ -2,11 +2,13 @@
 % Please edit documentation in R/clue_api.R
 \name{clue_query_poll}
 \alias{clue_query_poll}
+\alias{clue_query_status}
 \alias{clue_query_wait}
-\alias{clue_query_download}
 \title{Poll query job status}
 \usage{
 clue_query_poll(clue_query, api_key = NULL)
+
+clue_query_status(clue_query, api_key = NULL, from_poll = FALSE)
 
 clue_query_wait(
   clue_query,
@@ -15,8 +17,6 @@ clue_query_wait(
   quiet = FALSE,
   api_key = NULL
 )
-
-clue_query_download(clue_query, destination = NULL, api_key = NULL)
 }
 \arguments{
 \item{clue_query}{Job ID or job parameters returned by
@@ -24,24 +24,25 @@ clue_query_download(clue_query, destination = NULL, api_key = NULL)
 
 \item{api_key}{Clue API key. Leave empty if it is saved in \code{~/.Renviron}}
 
+\item{from_poll}{If TRUE, \code{clue_query} is assumed to be output from
+\code{clue_query_poll()} output. Otherwise it is assumed to be job ID.}
+
 \item{interval}{Check every x seconds.}
 
 \item{timeout}{Abort waiting after x seconds.}
 
 \item{quiet}{Don't output periodic status updates.}
-
-\item{destination}{Path to download destination.}
+}
+\value{
+List of status codes from Clue.
 }
 \description{
-\code{clue_query_poll} fetches the current status of the job.
-\code{clue_query_wait} blocks until the job either finishes or fails.
-\code{clue_query_download} should be called to download the results after
-the job is finished.
+Find out status of a job or wait for its completion.
 }
 \section{Functions}{
 \itemize{
-\item \code{clue_query_wait}: Wait for query completion
+\item \code{clue_query_status}: Get job status
 
-\item \code{clue_query_download}: Download query result
+\item \code{clue_query_wait}: Wait for query completion
 }}
 
