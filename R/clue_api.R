@@ -227,6 +227,35 @@ clue_query_download <- function(clue_query, destination = NULL, api_key = NULL) 
   destination
 }
 
+#' List jobs
+#'
+#' List all non-deleted jobs submitted by this user.
+#'
+#' @param api_key Clue API key. Leave empty if it is saved in \code{~/.Renviron}
+#' @return Data frame with job info from Clue.
+#' @export
+list_jobs <- function(api_key = NULL) {
+  api_key <- api_key %||% clue_retrieve_api_key()
+  request_url <- httr::modify_url(
+    API_URL,
+    path = "/api/jobs",
+    query = list(
+      filter = r"-{{"where":{"status":{"neq":"deleted"}}}}-"
+    )
+  )
+  response <- httr::GET(
+    request_url,
+    httr::add_headers(
+      user_key = api_key,
+      Accept = "application/json"
+    )
+  )
+  if (httr::http_error(response)) {
+    stop("Error while listing jobs:", httr::content(response, "text"))
+  }
+  response_json(response)
+}
+
 #' Retrieve API key
 clue_retrieve_api_key <- function() {
   api_key <- Sys.getenv("CLUE_API_KEY")

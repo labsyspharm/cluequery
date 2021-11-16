@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • cluequery</title>
+<title>Download Clue job results — clue_query_download • cluequery</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Download Clue job results — clue_query_download" />
+<meta property="og:description" content="Given a job ID this function will download the results of a Clue job
+as compressed tarball to the given location or to a temprary folder" />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -100,90 +102,43 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Download Clue job results</h1>
+    
+    <div class="hidden name"><code>clue_query_download.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>Given a job ID this function will download the results of a Clue job
+as compressed tarball to the given location or to a temprary folder</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>clue_query_download</span><span class='op'>(</span><span class='va'>clue_query</span>, destination <span class='op'>=</span> <span class='cn'>NULL</span>, api_key <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="clue_check_bing.html">clue_check_bing()</a></code> </p>
-        </td>
-        <td><p>Check if genes are in BING space</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="clue_parse_result.html">clue_parse_result()</a></code> </p>
-        </td>
-        <td><p>Parse result folder</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="clue_prepare_funs.html">clue_gmt_from_deseq2()</a></code> <code><a href="clue_prepare_funs.html">clue_gmt_from_df()</a></code> <code><a href="clue_prepare_funs.html">clue_gmt_from_list()</a></code> </p>
-        </td>
-        <td><p>Prepare GMT functions</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="clue_query_download.html">clue_query_download()</a></code> </p>
-        </td>
-        <td><p>Download Clue job results</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="clue_query_poll.html">clue_query_poll()</a></code> <code><a href="clue_query_poll.html">clue_query_status()</a></code> <code><a href="clue_query_poll.html">clue_query_wait()</a></code> </p>
-        </td>
-        <td><p>Poll query job status</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="clue_query_submit.html">clue_query_submit()</a></code> <code><a href="clue_query_submit.html">clue_queries_submit()</a></code> </p>
-        </td>
-        <td><p>Submit Clue queries</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="clue_retrieve_api_key.html">clue_retrieve_api_key()</a></code> </p>
-        </td>
-        <td><p>Retrieve API key</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gene_space.html">gene_space</a></code> </p>
-        </td>
-        <td><p>Gene space of CMap data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="list_jobs.html">list_jobs()</a></code> </p>
-        </td>
-        <td><p>List jobs</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>clue_query</th>
+      <td><p>Job ID or job parameters returned by
+<code><a href='clue_query_submit.html'>clue_query_submit</a></code></p></td>
+    </tr>
+    <tr>
+      <th>destination</th>
+      <td><p>Path to download destination.</p></td>
+    </tr>
+    <tr>
+      <th>api_key</th>
+      <td><p>Clue API key. Leave empty if it is saved in <code>~/.Renviron</code></p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Path to result tarball.</p>
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
