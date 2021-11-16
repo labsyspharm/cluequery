@@ -40,10 +40,7 @@
 
 
 <meta property="og:title" content="Poll query job status — clue_query_poll" />
-<meta property="og:description" content="clue_query_poll fetches the current status of the job.
-clue_query_wait blocks until the job either finishes or fails.
-clue_query_download should be called to download the results after
-the job is finished." />
+<meta property="og:description" content="Find out status of a job or wait for its completion." />
 
 
 
@@ -75,7 +72,7 @@ the job is finished." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cluequery</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -112,13 +109,12 @@ the job is finished." />
     </div>
 
     <div class="ref-description">
-    <p><code>clue_query_poll</code> fetches the current status of the job.
-<code>clue_query_wait</code> blocks until the job either finishes or fails.
-<code>clue_query_download</code> should be called to download the results after
-the job is finished.</p>
+    <p>Find out status of a job or wait for its completion.</p>
     </div>
 
     <pre class="usage"><span class='fu'>clue_query_poll</span><span class='op'>(</span><span class='va'>clue_query</span>, api_key <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='fu'>clue_query_status</span><span class='op'>(</span><span class='va'>clue_query</span>, api_key <span class='op'>=</span> <span class='cn'>NULL</span>, from_poll <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='fu'>clue_query_wait</span><span class='op'>(</span>
   <span class='va'>clue_query</span>,
@@ -126,9 +122,7 @@ the job is finished.</p>
   timeout <span class='op'>=</span> <span class='fl'>3600</span>,
   quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
   api_key <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span>
-
-<span class='fu'>clue_query_download</span><span class='op'>(</span><span class='va'>clue_query</span>, destination <span class='op'>=</span> <span class='cn'>NULL</span>, api_key <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +137,11 @@ the job is finished.</p>
       <td><p>Clue API key. Leave empty if it is saved in <code>~/.Renviron</code></p></td>
     </tr>
     <tr>
+      <th>from_poll</th>
+      <td><p>If TRUE, <code>clue_query</code> is assumed to be output from
+<code>clue_query_poll()</code> output. Otherwise it is assumed to be job ID.</p></td>
+    </tr>
+    <tr>
       <th>interval</th>
       <td><p>Check every x seconds.</p></td>
     </tr>
@@ -154,18 +153,17 @@ the job is finished.</p>
       <th>quiet</th>
       <td><p>Don't output periodic status updates.</p></td>
     </tr>
-    <tr>
-      <th>destination</th>
-      <td><p>Path to download destination.</p></td>
-    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>List of status codes from Clue.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
+<li><p><code>clue_query_status</code>: Get job status</p></li>
 <li><p><code>clue_query_wait</code>: Wait for query completion</p></li>
-<li><p><code>clue_query_download</code>: Download query result</p></li>
 </ul>
 
   </div>

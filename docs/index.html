@@ -34,7 +34,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">cluequery</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -174,7 +174,7 @@
 <span class="co">#&gt; Job completed: 5d36096d12e15519133e87fd</span></code></pre></div>
 <p><code>clue_query_wait</code> will automatically continue execution of the script once results are ready. Now we can download and parse the results:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">result_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/clue_query_poll.html">clue_query_download</a></span><span class="op">(</span><span class="va">submission_result</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">result_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/clue_query_download.html">clue_query_download</a></span><span class="op">(</span><span class="va">submission_result</span><span class="op">)</span>
 <span class="va">result_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/clue_parse_result.html">clue_parse_result</a></span><span class="op">(</span><span class="va">result_path</span><span class="op">)</span>
 <span class="co">#&gt; reading /var/folders/_h/wpz1qzm12t5687lbdm87lsh00000gp/T//RtmpbwGbaz/clueR-65a4facb13e/my_analysis.sig_fastgutc_tool.5d36096d12e15519133e87fd/matrices/gutc/ns_pert_summary.gctx</span>
 <span class="co">#&gt; done</span></code></pre></div>

@@ -5,20 +5,9 @@
 \alias{clue_queries_submit}
 \title{Submit Clue queries}
 \usage{
-clue_query_submit(
-  up_gmt,
-  down_gmt,
-  name = NULL,
-  api_key = NULL,
-  use_fast_tool = FALSE
-)
+clue_query_submit(up_gmt, down_gmt, name = NULL, api_key = NULL)
 
-clue_queries_submit(
-  queries,
-  api_key = NULL,
-  use_fast_tool = FALSE,
-  interval = 60
-)
+clue_queries_submit(queries, api_key = NULL, interval = 60)
 }
 \arguments{
 \item{up_gmt, down_gmt}{Path to GMT files containing the lists of up-
@@ -28,8 +17,6 @@ and down-regulated genes.}
 
 \item{api_key}{Clue API key. Leave empty if it is saved in
 \code{~/.Renviron}.}
-
-\item{use_fast_tool}{If TRUE (default), use experimental fast query tool.}
 
 \item{queries}{Named list of lists, each with an \code{up} and \code{down}
 slot containing up- and down-regulated GMT files. Job names
@@ -46,9 +33,6 @@ Submit query gene sets in GMT format as jobs to Clue.
 \details{
 GMT files can be generated using the \code{\link{clue_prepare_funs}}
 functions or \code{\link[cmapR]{write_gmt}}.
-
-The experimental faster query tools is described at
-\url{https://clue.io/contest}.
 }
 \section{Functions}{
 \itemize{

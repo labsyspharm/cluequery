@@ -8,9 +8,6 @@ MAX_JOBS <- 10
 #' GMT files can be generated using the \code{\link{clue_prepare_funs}}
 #' functions or \code{\link[cmapR]{write_gmt}}.
 #'
-#' The experimental faster query tools is described at
-#' \url{https://clue.io/contest}.
-#'
 #' @param up_gmt,down_gmt Path to GMT files containing the lists of up-
 #' and down-regulated genes.
 #' @param queries Named list of lists, each with an `up` and `down`
@@ -19,14 +16,12 @@ MAX_JOBS <- 10
 #' @param name Name for job.
 #' @param api_key Clue API key. Leave empty if it is saved in
 #'   \code{~/.Renviron}.
-#' @param use_fast_tool If TRUE (default), use experimental fast query tool.
 #' @return Nested list of job parameters returned by Clue.
 #' @export
 clue_query_submit <- function(
   up_gmt, down_gmt, name = NULL,
-  api_key = NULL, use_fast_tool = FALSE
+  api_key = NULL
 ) {
-  tool <- if (use_fast_tool) "sig_fastgutc_tool" else "sig_gutc_tool"
   api_key <- api_key %||% clue_retrieve_api_key()
 
   request_url <- httr::modify_url(
@@ -35,12 +30,14 @@ clue_query_submit <- function(
   )
   request_body <- list(
     "name" = name,
-    "tool_id" = tool,
     "uptag-cmapfile" = httr::upload_file(up_gmt),
     "dntag-cmapfile" = httr::upload_file(down_gmt),
     "data_type" = "L1000",
     "dataset" = "Touchstone",
-    "ignoreWarnings" = "false"
+    "ignoreWarnings" = "false",
+    "tool_id" = "sig_gutc_tool"
+    # "tool_id" = "sig_queryl1k_tool",
+    # "ts_version" = "1.0"
   )
 
   response <- httr::POST(
@@ -63,11 +60,10 @@ clue_query_submit <- function(
 #' @param interval Check every x seconds.
 #' @export
 clue_queries_submit <- function(
-  queries, api_key = NULL, use_fast_tool = FALSE, interval = 60
+  queries, api_key = NULL, interval = 60
 ) {
   if (interval < 60)
     stop("`interval` must be smaller than 60 in order to reduce burden on the server.")
-  tool <- if (use_fast_tool) "sig_fastgutc_tool" else "sig_gutc_tool"
   api_key <- api_key %||% clue_retrieve_api_key()
 
   jobs_running <- c()
@@ -83,7 +79,7 @@ clue_queries_submit <- function(
         ~{
           q <- queries[[.x]]
           j <- clue_query_submit(
-            q[["up"]], q[["down"]], .x, api_key = api_key, use_fast_tool = use_fast_tool
+            q[["up"]], q[["down"]], .x, api_key = api_key
           )
           jobs_running <<- c(jobs_running, to_be_submitted)
           jobs_remaining <<- setdiff(jobs_remaining, to_be_submitted)

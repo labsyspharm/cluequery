@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Submit Clue query — clue_query_submit • cluequery</title>
+<title>Submit Clue queries — clue_query_submit • cluequery</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Submit Clue query — clue_query_submit" />
-<meta property="og:description" content="GMT files can be generated using the clue_prepare_funs
-functions or write_gmt." />
+<meta property="og:title" content="Submit Clue queries — clue_query_submit" />
+<meta property="og:description" content="Submit query gene sets in GMT format as jobs to Clue." />
 
 
 
@@ -73,7 +72,7 @@ functions or write_gmt." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cluequery</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.2</span>
       </span>
     </div>
 
@@ -104,23 +103,18 @@ functions or write_gmt." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Submit Clue query</h1>
+    <h1>Submit Clue queries</h1>
     
     <div class="hidden name"><code>clue_query_submit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>GMT files can be generated using the <code><a href='clue_prepare_funs.html'>clue_prepare_funs</a></code>
-functions or <code><a href='https://rdrr.io/pkg/cmapR/man/write_gmt.html'>write_gmt</a></code>.</p>
+    <p>Submit query gene sets in GMT format as jobs to Clue.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>clue_query_submit</span><span class='op'>(</span>
-  <span class='va'>up_gmt</span>,
-  <span class='va'>down_gmt</span>,
-  name <span class='op'>=</span> <span class='cn'>NULL</span>,
-  api_key <span class='op'>=</span> <span class='cn'>NULL</span>,
-  use_fast_tool <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>clue_query_submit</span><span class='op'>(</span><span class='va'>up_gmt</span>, <span class='va'>down_gmt</span>, name <span class='op'>=</span> <span class='cn'>NULL</span>, api_key <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='fu'>clue_queries_submit</span><span class='op'>(</span><span class='va'>queries</span>, api_key <span class='op'>=</span> <span class='cn'>NULL</span>, interval <span class='op'>=</span> <span class='fl'>60</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,18 +134,30 @@ and down-regulated genes.</p></td>
 <code>~/.Renviron</code>.</p></td>
     </tr>
     <tr>
-      <th>use_fast_tool</th>
-      <td><p>If TRUE (default), use experimental fast query tool.</p></td>
+      <th>queries</th>
+      <td><p>Named list of lists, each with an <code>up</code> and <code>down</code>
+slot containing up- and down-regulated GMT files. Job names
+are derived from the list names.</p></td>
+    </tr>
+    <tr>
+      <th>interval</th>
+      <td><p>Check every x seconds.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Nested list of job parameters.</p>
+    <p>Nested list of job parameters returned by Clue.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The experimental faster query tools is described at
-<a href='https://clue.io/contest'>https://clue.io/contest</a>.</p>
+    <p>GMT files can be generated using the <code><a href='clue_prepare_funs.html'>clue_prepare_funs</a></code>
+functions or <code><a href='https://rdrr.io/pkg/cmapR/man/write_gmt.html'>write_gmt</a></code>.</p>
+    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
+
+    
+<ul>
+<li><p><code>clue_queries_submit</code>: Submit multiple queries to Clue</p></li>
+</ul>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
