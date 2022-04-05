@@ -28,16 +28,19 @@ clue_query_submit <- function(
     API_URL,
     path = "/api/jobs"
   )
+  # To query against the latest version of our data replace the value of the
+  # 'tool_id' with "sig_queryl1k_tool" and add ts_version : '1.0' to the payload
   request_body <- list(
     "name" = name,
-    "uptag-cmapfile" = httr::upload_file(up_gmt),
-    "dntag-cmapfile" = httr::upload_file(down_gmt),
+    "up-cmapfile" = readr::read_file(up_gmt),
+    "down-cmapfile" = readr::read_file(down_gmt),
     "data_type" = "L1000",
     "dataset" = "Touchstone",
     "ignoreWarnings" = "false",
-    "tool_id" = "sig_gutc_tool"
-    # "tool_id" = "sig_queryl1k_tool",
-    # "ts_version" = "1.0"
+    # "tool_id" = "sig_gutc_tool"
+    "tool_id" = "sig_queryl1k_tool",
+    "ts_version" = "1.0",
+    "tool_version" = "2.0.1.0"
   )
 
   response <- httr::POST(
@@ -46,7 +49,7 @@ clue_query_submit <- function(
       user_key = api_key
     ),
     body = request_body,
-    encode = "multipart"
+    encode = "json"
   )
 
   if (httr::http_error(response)) {
@@ -175,7 +178,7 @@ clue_query_wait <- function(
     stop("`interval` must be smaller than 60 in order to reduce burden on the server.")
   start_time <- as.integer(Sys.time())
   while(TRUE) {
-    rj <- clue_query_status(clue_query, api_key = api_key)
+    rj <- clue_query_poll(clue_query, api_key = api_key)
     job_status <- clue_query_status(rj, from_poll = TRUE)
     if (job_status == "completed") {
       if (!quiet)

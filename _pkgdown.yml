@@ -1,1 +1,4 @@
-destination: docs
+url: https://labsyspharm.github.io/cluequery/
+template:
+  bootstrap: 5
+

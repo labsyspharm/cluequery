@@ -1,6 +1,6 @@
 Package: cluequery
 Title: Query the Clue Database of Perturbations Using R
-Version: 0.3.2
+Version: 0.3.3
 Authors@R: 
     person(given = "Clemens",
            family = "Hug",
@@ -30,3 +30,4 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 2.1.0)
+URL: https://labsyspharm.github.io/cluequery/
