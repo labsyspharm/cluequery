@@ -45,7 +45,7 @@ clue_parse_result <- function(
   gene_sets <- signatures@cdesc[["id"]] %>%
     {if_else(str_starts(., "\\.?[0-9_]"), paste0("X", .), .)}
   signatures_df <- signatures@mat %>%
-    data.frame() %>%
+    as.data.frame() %>%
     tibble::as_tibble(rownames = "id") %>%
     dplyr::left_join(
       signatures@rdesc,
