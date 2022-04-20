@@ -30,17 +30,18 @@ clue_query_submit <- function(
   )
   # To query against the latest version of our data replace the value of the
   # 'tool_id' with "sig_queryl1k_tool" and add ts_version : '1.0' to the payload
+  # Querying latest dataset appears to be broken. Only querying old one for now
   request_body <- list(
     "name" = name,
     "up-cmapfile" = readr::read_file(up_gmt),
     "down-cmapfile" = readr::read_file(down_gmt),
     "data_type" = "L1000",
     "dataset" = "Touchstone",
-    "ignoreWarnings" = "false",
-    # "tool_id" = "sig_gutc_tool"
-    "tool_id" = "sig_queryl1k_tool",
-    "ts_version" = "1.0",
-    "tool_version" = "2.0.1.0"
+    # "ignoreWarnings" = FALSE,
+    "tool_id" = "sig_gutc_tool",
+    # "tool_id" = "sig_queryl1k_tool",
+    "ts_version" = "1.0"
+    # "tool_version" = "2.0.1.0"
   )
 
   response <- httr::POST(
