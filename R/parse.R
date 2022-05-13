@@ -42,8 +42,7 @@ clue_parse_result <- function(
   signatures <- cmapR::parse_gctx(
     signatures_file
   )
-  gene_sets <- signatures@cdesc[["id"]] %>%
-    {if_else(str_starts(., "\\.?[0-9_]"), paste0("X", .), .)}
+  gene_sets <- signatures@cdesc[["id"]]
   signatures_df <- signatures@mat %>%
     as.data.frame() %>%
     tibble::as_tibble(rownames = "id") %>%
